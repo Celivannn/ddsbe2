@@ -4,14 +4,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/users', ['uses' => 'UserController@getUsers']);
+// User routes
+$router->get('/users', 'UserController@index');              // Get all users
+$router->post('/users', 'UserController@addUser');           // Create new user
+$router->get('/users/{id}', 'UserController@show');          // Get user by ID
+$router->put('/users/{id}', 'UserController@update');        // Update user
+$router->patch('/users/{id}', 'UserController@update');      // Also update user
+$router->delete('/users/{id}', 'UserController@delete');     // Delete user
 
-    $router->get('/users', 'UserController@index');//get all users records
-    $router->post('/users', 'UserController@addUser');//create new user record
-    $router->get('/users/{id}', 'UserController@show');//get user by id
-    $router->put('/users/{id}', 'UserController@update');//update user record
-    $router->patch('/users/{id}', 'UserController@update');//update user record
-    $router->delete('/users/{id}', 'UserController@delete');//delete record
+// Optional: raw SQL version of users, for testing
+$router->get('/users-raw', 'UserController@getUsers');
 
-    $router->get('/usersjob', 'UserJobController@index'); // Get all jobs
-    $router->get('/usersjob/{id}', 'UserJobController@show'); // Get job by ID
+// User job routes
+$router->get('/usersjob', 'UserJobController@index');        // Get all jobs
+$router->get('/usersjob/{id}', 'UserJobController@show');    // Get job by ID
